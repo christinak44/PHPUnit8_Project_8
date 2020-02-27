@@ -11,6 +11,7 @@ include 'inc/header.php';
       <h1>Welcome</h1>
       <p class="actions-copy">What would you like to do today?</p>
       <div class="actions-wrapper">
+
         <ul class="actions">
             <li class="actions-item">
                 <a class="actions-link" href="task_list.php">
@@ -28,6 +29,7 @@ include 'inc/header.php';
               Add Task
             </a>
           </li>
+          <?php if (!isAuthenticated()) : ?>
           <li class="actions-item">
             <a class="actions-link" href="register.php">
               <span class="actions-icon">
@@ -35,5 +37,5 @@ include 'inc/header.php';
               </span>
                 Register
 		</div>
-
+         <?php endif; ?>
 <?php include("inc/footer.php"); ?>

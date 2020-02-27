@@ -6,12 +6,12 @@ $page = "tasks";
 $ownerId = $session->get('auth_user_id');
 $filter = request()->get('filter');
 if ($filter=='all') {
-    $tasks = getTasks($ownerId);
+    $tasks = getTasks('owner_id = $ownerId');
 } elseif ($filter=='complete') {
-    $tasks = getCompleteTasks($ownerId);
+    $tasks = getCompleteTasks('owner_id = $ownerId');
 } else {
     $filter = 'incomplete';
-    $tasks = getIncompleteTasks($ownerId);
+    $tasks = getIncompleteTasks('owner_id = $ownerId');
 }
 
 include 'inc/header.php';
@@ -37,7 +37,7 @@ include 'inc/header.php';
                 </ul>
                   <table class="items">
                       <tr><th>Status</th><th>Title</th><th>Action</th></tr>
-                        <?php if (isOwner($task['owner_id'])) : ?>
+                        <?php if (isOwner($tasks['owner_id'])) : ?>
                         <?php
                         foreach ($tasks as $item) {
                             echo "<tr><td>";
