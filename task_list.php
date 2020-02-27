@@ -3,15 +3,15 @@ require 'inc/bootstrap.php';
 requireAuth();
 $pageTitle = "Task List | Time Tracker";
 $page = "tasks";
-
+$ownerId = $session->get('auth_user_id');
 $filter = request()->get('filter');
 if ($filter=='all') {
-    $tasks = getTasks();
+    $tasks = getTasks($ownerId);
 } elseif ($filter=='complete') {
-    $tasks = getCompleteTasks();
+    $tasks = getCompleteTasks($ownerId);
 } else {
     $filter = 'incomplete';
-    $tasks = getIncompleteTasks();
+    $tasks = getIncompleteTasks($ownerId);
 }
 
 include 'inc/header.php';

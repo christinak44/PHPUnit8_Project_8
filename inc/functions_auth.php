@@ -21,7 +21,7 @@ function isOwner($ownerId)
   }
 
   global $session;
-  return $ownerId == $session->get('auth_user_id');
+  return $ownerId = $session->get('auth_user_id');
 }
 
 function getAuthenticatedUser()

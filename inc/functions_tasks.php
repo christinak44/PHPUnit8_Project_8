@@ -17,11 +17,11 @@ function getTasks($where = null)
     }
     return $tasks;
 }
-function getIncompleteTasks()
+function getIncompleteTasks($ownerId)
 {
     return getTasks('status=0');
 }
-function getCompleteTasks()
+function getCompleteTasks($ownerId)
 {
     return getTasks('status=1');
 }
@@ -40,7 +40,7 @@ function getTask($task_id)
     }
     return $task;
 }
-function createTask($task, $status, $ownerId = null)
+function createTask($data)
 {
     global $db;
     if (empty($ownerId)) {
@@ -49,9 +49,9 @@ function createTask($task, $status, $ownerId = null)
 
     try {
         $statement = $db->prepare('INSERT INTO tasks (task, status, owner_id) VALUES (:task, :status, :ownerId)');
-        $statement->bindParam(':task', $task);
-        $statement->bindParam(':status', $status);
-        $stmt->bindParam(':ownerId', $ownerId);
+        $statement->bindParam(':task', $data['task']);
+        $statement->bindParam(':status', $data['status']);
+        $statement->bindParam(':ownerId', $data['ownerId']);
         $statement->execute();
     } catch (Exception $e) {
         echo "Error!: " . $e->getMessage() . "<br />";
