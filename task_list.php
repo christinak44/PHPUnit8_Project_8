@@ -1,6 +1,6 @@
 <?php
 require 'inc/bootstrap.php';
-
+requireAuth();
 $pageTitle = "Task List | Time Tracker";
 $page = "tasks";
 
@@ -37,6 +37,7 @@ include 'inc/header.php';
                 </ul>
                   <table class="items">
                       <tr><th>Status</th><th>Title</th><th>Action</th></tr>
+                        <?php if (isOwner($task['owner_id'])) : ?>
                         <?php
                         foreach ($tasks as $item) {
                             echo "<tr><td>";
@@ -56,11 +57,12 @@ include 'inc/header.php';
                             echo "</td><td>";
 
                             echo "<a href='inc/actions_tasks.php?action=delete&task_id=".$item['id'];
-                            echo "' onclick=\"return confirm('Are you sure you want tot delete this task?');\"";
+                            echo "' onclick=\"return confirm('Are you sure you want to delete this task?');\"";
                             echo "'>Delete</a>";
                             echo "</td></tr>\n";
                         }
                         ?>
+                      <?php endif; ?>
                   </table>
             </div>
 
