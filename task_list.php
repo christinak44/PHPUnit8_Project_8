@@ -3,15 +3,15 @@ require 'inc/bootstrap.php';
 requireAuth();
 $pageTitle = "Task List | Time Tracker";
 $page = "tasks";
-$ownerId = $session->get('auth_user_id');
+//$ownerId = decodeAuthCookie('auth_user_id');
 $filter = request()->get('filter');
 if ($filter=='all') {
-    $tasks = getTasks("owner_id = $ownerId");
+    $tasks = getTasks();
 } elseif ($filter=='complete') {
-    $tasks = getCompleteTasks($ownerId);
+    $tasks = getCompleteTasks();
 } else {
     $filter = 'incomplete';
-    $tasks = getIncompleteTasks($ownerId);
+    $tasks = getIncompleteTasks();
 }
 
 include 'inc/header.php';
@@ -37,9 +37,10 @@ include 'inc/header.php';
                 </ul>
                   <table class="items">
                       <tr><th>Status</th><th>Title</th><th>Action</th></tr>
-                        <?php if (isOwner($tasks['owner_id'])) : ?>
+                        
                         <?php
                         foreach ($tasks as $item) {
+                          if (isOwner($item['owner_id'])) {
                             echo "<tr><td>";
                             echo "<input type='checkbox' onChange='javascript:location=\"inc/actions_tasks.php?action=status&task_id=".$item['id'];
                             if (!empty($filter)) {
@@ -60,9 +61,10 @@ include 'inc/header.php';
                             echo "' onclick=\"return confirm('Are you sure you want to delete this task?');\"";
                             echo "'>Delete</a>";
                             echo "</td></tr>\n";
+                          }
                         }
                         ?>
-                      <?php endif; ?>
+
                   </table>
             </div>
 

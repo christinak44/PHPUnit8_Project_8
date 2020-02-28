@@ -19,7 +19,7 @@ function isOwner($ownerId)
     return false;
   }
 
-  return $ownerId = decodeAuthCookie('auth_user_id');
+  return $ownerId == decodeAuthCookie('auth_user_id');
 }
 
 function getAuthenticatedUser()
@@ -51,7 +51,7 @@ function saveUserData($user)
 function setAuthCookie($data, $expTime) {
   $cookie = new Symfony\Component\HttpFoundation\Cookie(
     'auth',
-    json_encode($data),
+    $data,
     $expTime,
     '/',
     'localhost',
