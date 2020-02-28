@@ -19,11 +19,11 @@ function getTasks($where = null)
 }
 function getIncompleteTasks()
 {
-    return getTasks('owner_id = $ownerId AND status=0');
+    return getTasks("owner_id = $ownerId AND status=0");
 }
 function getCompleteTasks()
 {
-    return getTasks('owner_id = $ownerId AND status=1');
+    return getTasks("owner_id = $ownerId AND status=1");
 }
 function getTask($task_id)
 {

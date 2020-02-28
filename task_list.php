@@ -6,12 +6,12 @@ $page = "tasks";
 $ownerId = $session->get('auth_user_id');
 $filter = request()->get('filter');
 if ($filter=='all') {
-    $tasks = getTasks('owner_id = $ownerId');
+    $tasks = getTasks("owner_id = $ownerId");
 } elseif ($filter=='complete') {
-    $tasks = getCompleteTasks('owner_id = $ownerId');
+    $tasks = getCompleteTasks($ownerId);
 } else {
     $filter = 'incomplete';
-    $tasks = getIncompleteTasks('owner_id = $ownerId');
+    $tasks = getIncompleteTasks($ownerId);
 }
 
 include 'inc/header.php';

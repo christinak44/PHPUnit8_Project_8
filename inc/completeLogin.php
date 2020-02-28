@@ -12,5 +12,4 @@ if (!password_verify(request()->get('password'), $user['password'])) {
   redirect('/login.php');
 }
 
-saveUserSession($user);
-redirect('/');
+saveUserData($user);
